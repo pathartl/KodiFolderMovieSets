@@ -66,6 +66,7 @@ namespace KodiFolderMovieSets.Services
             movieSet.Name = name;
 
             _context.Add(movieSet);
+            Console.WriteLine(String.Format("[{0}] Creating movie set {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), name));
             _context.SaveChanges();
 
             return movieSet;
@@ -79,6 +80,7 @@ namespace KodiFolderMovieSets.Services
             {
                 if (set.Movies.Count() == 0)
                 {
+                    Console.WriteLine(String.Format("[{0}] Removing movie set {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), set.Name));
                     _context.Remove(set);
                 }
             }
@@ -157,6 +159,9 @@ namespace KodiFolderMovieSets.Services
 
                     _context.Add(setFanart);
                 }
+
+                Console.WriteLine(String.Format("[{0}] Updating the poster for \"{1}\" to {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), set.Name, setPoster.Url));
+                Console.WriteLine(String.Format("[{0}] Updating the fanart for \"{1}\" to {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), set.Name, setFanart.Url));
             }
 
             _context.SaveChanges();
@@ -230,6 +235,7 @@ namespace KodiFolderMovieSets.Services
 
                     if (existingMovieSet != null && movie.SetId != existingMovieSet.Id)
                     {
+                        Console.WriteLine(String.Format("[{0}] Changing movie set for {1} to {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), movie.Title, existingMovieSet.Name));
                         movie.SetId = existingMovieSet.Id;
                     }
                 }
