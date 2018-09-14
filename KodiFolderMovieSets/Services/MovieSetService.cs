@@ -231,7 +231,12 @@ namespace KodiFolderMovieSets.Services
 
                 if (movieSetDirectory != "")
                 {
-                    var existingMovieSet = movieSets.SingleOrDefault(ms => ms.Name == movieSetDirectory);
+                    var existingMovieSet = movieSets.FirstOrDefault(ms => ms.Name == movieSetDirectory);
+
+                    if (existingMovieSet == null)
+                    {
+                        existingMovieSet = CreateMovieSet(movieSetDirectory);
+                    }
 
                     if (existingMovieSet != null && movie.SetId != existingMovieSet.Id)
                     {
